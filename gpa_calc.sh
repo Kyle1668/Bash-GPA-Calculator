@@ -10,18 +10,20 @@ function printPrompt() {
 	return
 }
 
-function getGrade() {
-
+function getNumCourses() {
+	echo "Enter the number of courses to be grades"
+	read numCourses
+	return $((numcourses + 0))
 }
 
 function main() {
 	printPrompt
+	getNumCourses
 
-	keepGrading=0
 	totalUnitsPossible=0
 	totalUnitsRecieved=0
 
-	while [$keepGrading -eq 0]
+	while ($keepGrading -eq getNumCourses)
 	do
 		echo "Enter course name."
 		read $courseName		
@@ -29,16 +31,9 @@ function main() {
 		read $courseUnits
 		echo "Enter letter grade"
 		read $letterGrade
-
-		if [$courseName != -1]
-			echo "Name: $courseName"	
-			echo "Units: $courseUnits"
-			echo "Grade: $letterGrade"
-		else
-			$keepGrading=1
-		fi
 	done
 
+	echo "program finished"
 
 	return
 }
