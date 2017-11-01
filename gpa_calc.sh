@@ -13,27 +13,30 @@ function printPrompt() {
 function getNumCourses() {
 	echo "Enter the number of courses to be grades"
 	read numCourses
-	return $((numcourses + 0))
+	return $((numcourses))
 }
 
 function main() {
 	printPrompt
-	getNumCourses
 
 	totalUnitsPossible=0
 	totalUnitsRecieved=0
+	
+	read -p "Enter number of courses: " numCourses
 
-	while ($keepGrading -eq getNumCourses)
-	do
-		echo "Enter course name."
-		read $courseName		
-		echo "Enter course units"
-		read $courseUnits
-		echo "Enter letter grade"
-		read $letterGrade
+	for((i=0;i<numCourses;i++));  do
+		read -p "Enter course name: " courseName
+		read -p "Enter course units: " courseUnits
+		read -p "Enter letter grade recieved: " letterGrade
+
+		totalUnitsPossible=$((totalUnitsPosible + $courseUnits))
+		# ((totalPossibeUnits+=$courseUnits))
 	done
 
-	echo "program finished"
+	echo $totalUnitsPossible
+
+echo "program finished"
+
 
 	return
 }
