@@ -1,7 +1,7 @@
 # GPA Calculator
 
 function printPrompt() {
-	echo 
+	echo
 	echo
 	echo "College GPA Calculator"
 	echo "Enter the course name, number of units, and grade."
@@ -16,12 +16,10 @@ function getNumCourses() {
 	return $((numcourses))
 }
 
-function main() {
-	printPrompt
-
+function calcGPA() {
 	totalUnitsPossible=0
 	totalUnitsRecieved=0
-	
+
 	read -p "Enter number of courses: " numCourses
 
 	for((i=0;i<numCourses;i++));  do
@@ -29,17 +27,45 @@ function main() {
 		read -p "Enter course units: " courseUnits
 		read -p "Enter letter grade recieved: " letterGrade
 
-		totalUnitsPossible=$((totalUnitsPosible + $courseUnits))
-		# ((totalPossibeUnits+=$courseUnits))
+		if (( (("$letterGrade"  == "A")) || (("$letterGrade"  == "a" )) )); then
+			unitsEarned=$((courseUnits * 4))
+		fi
+
+		if (( (("$letterGrade"  == "B")) || (("$letterGrade"  == "b" )) )); then
+			unitsEarned=$((courseUnits * 3))
+		fi
+
+		if (( (("$letterGrade"  == "C")) || (("$letterGrade"  == "c" )) )); then
+			unitsEarned=$((courseUnits * 2))
+		fi
+
+		if (( (("$letterGrade"  == "D")) || (("$letterGrade"  == "d" )) )); then
+			unitsEarned=$((courseUnits * 1))
+		fi
+
+		if (( (("$letterGrade"  == "F")) || (("$letterGrade"  == "f" )) )); then
+			unitsEarned=$((courseUnits * 0))
+		fi
+
+		if (( (("$letterGrade"  == "D")) || (("$letterGrade"  == "d" )) )); then
+			unitsEarned=$((courseUnits * 0))
+		fi
+
+		let "totalUnitsPossible=totalUnitsPossible+courseUnits"
+		let "totalUnitsRecieved+=unitsEarned"
+
 	done
 
-	echo $totalUnitsPossible
+	GPA=$((totalUnitsRecieved / totalUnitsPossible))
 
-echo "program finished"
+	printf "%.3f\n" "GPA: " $GPA
+}
 
-
+function main() {
+	printPrompt
+	calcGPA
+	echo "program finished"
 	return
 }
 
 main
-
